@@ -8,12 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.scss">
+    <link rel="stylesheet" href="./assets/css/style.scss">
 </head>
 
 <body>
     <header class="header">
-        <!-- шапка  -->
         <div class="header__top">
             <div class="container">
                 <div class="header__top-inner">
@@ -60,11 +59,17 @@
             </div>
         </div>
 
-        <!-- основная часть шапки -->
         <div class="header__main">
             <div class="container">
                 <div class="header__main-inner">
-                    <!-- лого -->
+                    <button class="header__burger" aria-label="Меню">
+                        <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="20" height="1.71344" rx="0.856721" fill="#09ABE4" />
+                            <rect y="5.14331" width="10" height="1.71344" rx="0.856721" fill="#09ABE4" />
+                            <rect y="10.2866" width="20" height="1.71344" rx="0.856721" fill="#09ABE4" />
+                        </svg>
+
+                    </button>
                     <div class="header__logo">
                         <a href="#" class="header__logo-link">
                             <svg width="216" height="54" viewBox="0 0 216 54" fill="none"
@@ -102,13 +107,10 @@
                             </svg>
                         </a>
                     </div>
-                    </ul>
-                    </nav>
                     <div class="header__phone">
                         <a href="tel:8184529633" class="header__phone-link">(8184) 52-96-33</a>
                     </div>
 
-                    <!-- искать -->
                     <div class="header__search">
                         <form class="search-form">
                             <input type="text" class="search-form__input" placeholder="Искать"
@@ -123,7 +125,6 @@
                         </form>
                     </div>
 
-                    <!-- регистрация + корзина -->
                     <div class="header__user">
                         <a href="#" class="user-link">
                             <span class="user-link__icon">
@@ -181,7 +182,6 @@
             </div>
         </div>
 
-        <!-- навигация -->
         <nav class="header__nav">
             <div class="container">
                 <ul class="nav__list">
@@ -214,7 +214,6 @@
         </nav>
     </header>
 
-    <!-- баннер -->
     <section class="banner">
         <div class="container">
             <div class="banner__slider">
@@ -287,7 +286,6 @@
             </div>
         </div>
     </section>
-    <!-- подбор очков -->
     <section class="glasses-selection">
         <div class="container">
             <div class="glasses-selection__inner">
@@ -304,7 +302,6 @@
             </div>
         </div>
     </section>
-    <!-- популярные товары -->
     <section class="popular-products">
         <div class="container">
             <h2 class="popular-products__title">Популярные товары</h2>
@@ -397,7 +394,6 @@
             </div>
         </div>
     </section>
-    <!-- акции -->
     <section class="promotions">
         <div class="container">
             <div class="promotions__header">
@@ -434,7 +430,6 @@
             </div>
         </div>
     </section>
-    <!-- о компании -->
     <section class="about-company">
         <div class="container">
             <div class="about-company__inner">
@@ -467,7 +462,6 @@
             </div>
         </div>
     </section>
-    <!-- подвал -->
     <footer class="footer">
         <div class="container">
             <div class="footer__top">

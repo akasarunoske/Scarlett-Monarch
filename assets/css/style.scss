@@ -4,6 +4,11 @@ $font-family: 'Lato', sans-serif;
 $text-color: #828282;
 $hover-color: #09ABE4;
 $container-width: 1410px;
+$bp-1024: 1024px;
+$bp-768: 768px;
+$bp-425: 425px;
+$bp-375: 375px;
+$bp-325: 325px;
 
 * {
     margin: 0;
@@ -15,10 +20,23 @@ body {
     font-family: $font-family;
     font-weight: 400;
     color: $text-color;
+    background: #fff;
+}
+
+.container {
+    max-width: $container-width;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+body {
+    font-family: $font-family;
+    font-weight: 400;
+    color: $text-color;
     background: #ffffff;
 }
 
-// шапка 
 
 .container {
     max-width: $container-width;
@@ -296,7 +314,6 @@ body {
     }
 }
 
-// баннер
 
 .banner {
     padding: 40px 0;
@@ -459,8 +476,6 @@ body {
     }
 }
 
-// подбор очков
-
 .glasses-selection {
     padding: 60px 0;
     background: linear-gradient(135deg, #09ABE4 2%, #282696FA 98%);
@@ -527,7 +542,6 @@ body {
     max-height: 300px;
 }
 
-// популярные товары
 
 .popular-products {
     padding: 60px 0;
@@ -698,8 +712,6 @@ body {
     }
 }
 
-// акции
-
 .promotions {
     padding: 60px 0;
     background: #ffffff;
@@ -741,15 +753,6 @@ body {
             height: 1px;
             background: #09ABE4;
             transition: all 0.3s ease;
-        }
-
-        &:hover {
-            color: darken(#09ABE4, 10%);
-
-            &::after {
-                height: 2px;
-                background: darken(#09ABE4, 10%);
-            }
         }
     }
 }
@@ -817,6 +820,15 @@ body {
         line-height: 1.3;
         margin-bottom: 12px;
         text-transform: uppercase;
+
+        @media (max-width: 425px) {
+            font-size: 14px;
+
+        }
+
+        @media (max-width: 325px) {
+            font-size: 10px;
+        }
     }
 
     &__description {
@@ -825,6 +837,14 @@ body {
         line-height: 1.4;
         margin-bottom: 20px;
         opacity: 0.9;
+
+        @media (max-width: 425px) {
+            font-size: 10px;
+        }
+
+        @media (max-width: 325px) {
+            font-size: 8px;
+        }
     }
 
     &__button {
@@ -840,6 +860,14 @@ body {
         position: relative;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+
+        @media (max-width: 425px) {
+            font-size: 10px;
+        }
+
+        @media (max-width: 325px) {
+            font-size: 8px;
+        }
 
         &::after {
             content: '';
@@ -861,8 +889,6 @@ body {
         }
     }
 }
-
-// о компании
 
 .about-company {
     padding: 60px 0;
@@ -980,8 +1006,6 @@ body {
     margin-left: 4px;
 }
 
-// подвал
-
 .footer {
     background: #FFFFFF;
     padding: 40px 0 20px;
@@ -1074,6 +1098,7 @@ body {
     }
 
     &__contacts {
+
         .footer__phone,
         .footer__email {
             font-size: 14px;
@@ -1248,5 +1273,561 @@ body {
                 height: 20px;
             }
         }
+    }
+}
+
+.container {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.header {
+    position: relative;
+    z-index: 100;
+}
+
+.header__burger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #E3E3E3;
+    border-radius: 8px;
+    background: #fff;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: #333;
+    }
+}
+
+.header__nav {
+    transition: transform .3s ease, opacity .3s ease;
+}
+
+@media (max-width: $bp-768) {
+    .header__top {
+        display: none;
+    }
+
+    .header__main {
+        background: #fff;
+    }
+
+    .header__main-inner {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        grid-template-areas:
+            "user burger logo"
+            "search search search";
+        gap: 12px;
+        min-height: 64px;
+        align-items: center;
+    }
+
+    .header__user {
+        grid-area: user;
+        justify-self: start;
+        gap: 12px;
+
+        .user-link__text {
+            display: none;
+        }
+
+        .header__divider {
+            display: none;
+        }
+    }
+
+    .header__burger {
+        grid-area: burger;
+        display: inline-flex;
+        justify-self: start;
+    }
+
+    .header__logo {
+        grid-area: logo;
+        justify-self: start;
+
+        svg {
+            width: 160px;
+            height: auto;
+        }
+    }
+
+    .header__phone {
+        display: none;
+    }
+
+    .header__search {
+        grid-area: search;
+        width: 100%;
+    }
+
+    .search-form {
+        width: 100%;
+    }
+
+    .search-form__input {
+        border: 1px solid #E3E3E3;
+        border-radius: 8px;
+    }
+
+    .header__nav {
+        position: fixed;
+        inset: 0 0 0 0;
+        background: #fff;
+        padding: 88px 16px 24px;
+        transform: translateY(-100%);
+        opacity: 0;
+        z-index: 99;
+        overflow-y: auto;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, .08);
+    }
+
+    .header__nav.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .nav__list {
+        display: grid;
+        gap: 12px;
+        justify-items: start;
+    }
+
+    .nav__item {
+        flex: none;
+        text-align: left;
+    }
+
+    .nav__link {
+        padding: 12px 0;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: $bp-768) {
+    .banner {
+        padding: 20px 0;
+    }
+
+    .banner__content {
+        display: block;
+        height: auto;
+    }
+
+    .banner__right {
+        display: none;
+    }
+
+    .banner__left {
+        display: block;
+    }
+
+    .banner__text {
+        text-align: center;
+        max-width: none;
+        margin: 0;
+    }
+
+    .banner__title {
+        font-size: 24px;
+    }
+
+    .banner__description {
+        font-size: 14px;
+    }
+
+    .banner__button {
+        padding: 10px 24px;
+        font-size: 14px;
+    }
+
+    .banner__nav--prev {
+        left: 8px;
+    }
+
+    .banner__nav--next {
+        right: 8px;
+    }
+
+    .banner__indicators {
+        bottom: 16px;
+    }
+}
+
+@media (max-width: $bp-1024) {
+    .glasses-selection {
+        width: 100%;
+        height: auto;
+        padding: 40px 0;
+    }
+
+    .glasses-selection__img {
+        max-height: 260px;
+    }
+}
+
+@media (max-width: $bp-768) {
+    .glasses-selection {
+        padding: 24px 0;
+    }
+
+    .glasses-selection__inner {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .glasses-selection__image {
+        order: 1;
+        margin: 0;
+    }
+
+    .glasses-selection__content {
+        order: 2;
+        margin: 0;
+        max-width: 560px;
+    }
+
+    .glasses-selection__title {
+        font-size: 28px;
+    }
+
+    .glasses-selection__description {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: $bp-768) {
+    .popular-products {
+        position: relative;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .product-card {
+        display: none;
+        max-width: none;
+        height: auto;
+        border-left: none;
+        border-right: none;
+    }
+
+    .product-card.is-active {
+        display: flex;
+    }
+}
+
+.mobile-slider-nav {
+    display: none;
+}
+
+@media (max-width: $bp-768) {
+    .mobile-slider-nav {
+        display: block;
+    }
+
+    .mobile-slider-nav__btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #fff;
+        border: 1px solid #E3E3E3;
+        color: #333;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        z-index: 5;
+    }
+
+    .mobile-slider-nav__btn.prev {
+        left: 8px;
+    }
+
+    .mobile-slider-nav__btn.next {
+        right: 8px;
+    }
+
+    .mobile-slider-nav__btn:disabled {
+        opacity: .4;
+        pointer-events: none;
+    }
+}
+
+@media (max-width: $bp-768) {
+    .promotions {
+        position: relative;
+    }
+
+    .promotions-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .promotion-card {
+        display: none;
+        max-width: none;
+        height: auto;
+    }
+
+    .promotion-card.is-active {
+        display: block;
+    }
+
+    .promotions__header {
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-width: $bp-768) {
+    .about-company__inner {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .about-company__right {
+        display: none;
+    }
+
+    .about-company__left {
+        max-width: none;
+        height: auto;
+        justify-content: center;
+    }
+
+    .about-company__content {
+        padding: 24px 16px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .about-company__title {
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+
+    .about-company__paragraph {
+        font-size: 14px;
+    }
+
+    .about-company__button {
+        align-self: center;
+    }
+}
+
+
+@media (max-width: $bp-768) {
+    .footer {
+        padding: 24px 0 16px;
+    }
+
+    .footer__top {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+    }
+
+    .footer__logo svg {
+        width: 160px;
+        height: auto;
+    }
+
+    .footer__nav {
+        width: 100%;
+        display: grid;
+        gap: 8px;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .footer__main {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .footer__column {
+        align-items: center;
+    }
+
+    .footer__social-links {
+        justify-content: center;
+    }
+
+    .footer__bottom {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        text-align: center;
+        justify-items: center;
+    }
+
+    .footer__bottom-right {
+        order: 1;
+    }
+
+    .footer__bottom-left {
+        order: 2;
+    }
+}
+
+@media (max-width: $bp-425) {
+    .header__main-inner {
+        min-height: 56px;
+    }
+
+    .banner__title {
+        font-size: 22px;
+    }
+
+    .glasses-selection__title {
+        font-size: 24px;
+    }
+
+    .product-card__name {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: $bp-375) {
+    :root {
+        font-size: 15px;
+    }
+
+    .header__logo svg {
+        width: 148px;
+    }
+
+    .mobile-slider-nav__btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@media (max-width: $bp-325) {
+    :root {
+        font-size: 14px;
+    }
+
+    .header__user {
+        gap: 8px;
+    }
+}
+
+@media (max-width: $bp-768) {
+    .footer {
+        padding: 24px 0 16px;
+    }
+
+    .footer .container {
+        display: grid;
+        gap: 16px;
+    }
+
+    .footer__top {
+        display: grid;
+        justify-items: center;
+        gap: 12px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .footer__logo svg {
+        width: 160px;
+        height: auto;
+    }
+
+    .footer__nav {
+        width: 100%;
+        display: grid;
+        gap: 8px;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .footer__main {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin: 0;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .footer__company,
+    .footer__shops,
+    .footer__newsletter,
+    .footer__legal-links,
+    .footer__social,
+    .footer__column-title {
+        display: none !important;
+    }
+
+    .footer__contacts {
+        display: grid;
+        justify-items: center;
+        gap: 6px;
+    }
+
+    .footer__contacts .footer__phone,
+    .footer__contacts .footer__email {
+        font-size: 16px;
+        color: #333;
+    }
+
+    .footer__bottom {
+        display: grid;
+        gap: 12px;
+        padding-top: 0;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .footer__payment-text {
+        display: none;
+    }
+
+    .footer__payment-methods {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .footer__bottom-left .footer__bottom-text {
+        display: none;
+    }
+
+    .footer__bottom-left .footer__bottom-text:first-child {
+        display: block;
+    }
+
+    .footer__bottom-right {
+        order: 1;
+    }
+
+    .footer__bottom-left {
+        order: 2;
     }
 }

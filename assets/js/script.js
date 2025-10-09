@@ -1,4 +1,3 @@
-// корзина
 class Cart {
     constructor() {
         this.cartCount = document.querySelector('.cart-count');
@@ -156,7 +155,6 @@ class Cart {
     }
 }
 
-// баннер
 
 class BannerSlider {
     constructor() {
@@ -203,7 +201,6 @@ class BannerSlider {
     }
 }
 
-// навигация
 
 class Navigation {
     constructor() {
@@ -227,7 +224,6 @@ class Navigation {
     }
 }
 
-// популярные товары
 
 class ProductCards {
     constructor() {
@@ -280,8 +276,6 @@ class ProductCards {
         }, 3000);
     }
 }
-
-// акции
 
 class Promotions {
     constructor() {
@@ -341,7 +335,12 @@ class Promotions {
     }
 }
 
-// адаптивность
+
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.product-card__cart')) {
+        console.log('Cart button clicked directly');
+    }
+});
 
 class MobileMenu {
     constructor() {
@@ -354,18 +353,95 @@ class MobileMenu {
     }
 
     init() {
-        this.burger.addEventListener('click', () => {
-            this.toggleMenu();
+        this.burger.addEventListener('click', () => this.toggleMenu());
+        this.nav.addEventListener('click', (e) => {
+            if (e.target.classList.contains('nav__link')) this.closeMenu();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') this.closeMenu();
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) this.closeMenu();
         });
     }
 
     toggleMenu() {
-        this.nav.classList.toggle('active');
-        this.burger.classList.toggle('active');
+        const willOpen = !this.nav.classList.contains('active');
+        this.nav.classList.toggle('active', willOpen);
+        this.burger.classList.toggle('active', willOpen);
+        document.body.classList.toggle('no-scroll', willOpen);
+    }
+
+    closeMenu() {
+        this.nav.classList.remove('active');
+        this.burger.classList.remove('active');
+        document.body.classList.remove('no-scroll');
     }
 }
 
-// приложение
+class SimpleMobileSlider {
+    constructor(root, itemSelector) {
+        this.root = root;
+        this.itemSelector = itemSelector;
+        this.items = Array.from(root.querySelectorAll(itemSelector));
+        this.index = 0;
+        this.nav = null;
+        this.inited = false;
+
+        this.onResize = this.onResize.bind(this);
+        this.tryInit();
+        window.addEventListener('resize', this.onResize);
+    }
+
+    isMobile() { return window.innerWidth <= 768; }
+
+    tryInit() {
+        if (!this.inited && this.isMobile() && this.items.length > 1) {
+            this.inited = true;
+            this.items.forEach((el, i) => el.classList.toggle('is-active', i === 0));
+            this.createNav();
+        } else if (this.inited && !this.isMobile()) {
+            this.destroy();
+        }
+    }
+
+    createNav() {
+        this.nav = document.createElement('div');
+        this.nav.className = 'mobile-slider-nav';
+        this.nav.innerHTML = `
+          <button class="mobile-slider-nav__btn prev" aria-label="Предыдущий">‹</button>
+          <button class="mobile-slider-nav__btn next" aria-label="Следующий">›</button>
+        `;
+        this.root.appendChild(this.nav);
+        this.nav.querySelector('.prev').addEventListener('click', () => this.prev());
+        this.nav.querySelector('.next').addEventListener('click', () => this.next());
+        this.updateButtons();
+    }
+
+    updateButtons() {
+        if (!this.nav) return;
+        const prev = this.nav.querySelector('.prev');
+        const next = this.nav.querySelector('.next');
+        prev.disabled = (this.index === 0);
+        next.disabled = (this.index === this.items.length - 1);
+    }
+
+    showCurrent() {
+        this.items.forEach((el, i) => el.classList.toggle('is-active', i === this.index));
+        this.updateButtons();
+    }
+
+    prev() { if (this.index > 0) { this.index--; this.showCurrent(); } }
+    next() { if (this.index < this.items.length - 1) { this.index++; this.showCurrent(); } }
+
+    destroy() {
+        if (this.nav) { this.nav.remove(); this.nav = null; }
+        this.items.forEach(el => el.classList.remove('is-active'));
+        this.inited = false;
+    }
+
+    onResize() { this.tryInit(); }
+}
 
 class App {
     constructor() {
@@ -379,15 +455,14 @@ class App {
         this.productCards = new ProductCards();
         this.promotions = new Promotions();
         this.mobileMenu = new MobileMenu();
+        const popular = document.querySelector('.popular-products');
+        if (popular) this.popularSlider = new SimpleMobileSlider(popular, '.product-card');
+
+        const promos = document.querySelector('.promotions');
+        if (promos) this.promosSlider = new SimpleMobileSlider(promos, '.promotion-card');
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     new App();
-});
-
-document.addEventListener('click', (e) => {
-    if (e.target.closest('.product-card__cart')) {
-        console.log('Cart button clicked directly');
-    }
 });
