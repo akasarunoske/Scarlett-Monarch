@@ -1831,3 +1831,41 @@ body {
         order: 2;
     }
 }
+
+.popular-products {
+    padding: 30px 0;
+    
+    &__categories {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.simple-category {
+    flex: 0 0 auto;
+    padding: 15px 25px;
+    background: #f8f9fa;
+    border: 1px solid #E3E3E3;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    white-space: nowrap;
+    
+    &:hover {
+        border-color: #09ABE4;
+        color: #09ABE4;
+    }
+}
+
+@media (min-width: $bp-1024) {
+    .simple-category {
+        display: none;
+    }
+}
